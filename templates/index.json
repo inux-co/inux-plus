@@ -43,7 +43,10 @@
         "heading": "Ride the Mountain",
         "subheading": "Premium Snowboards",
         "description": "Discover our collection of handcrafted snowboards built for performance, style, and the thrill of the slopes. From powder days to park sessions, find the perfect board for your ride.",
+        "hero_image": "shopify://shop_images/snowboards-with-different-graphics-designs-all-standing-up-in-a-group-on-mountain-top-with-a-night-sky-and-the-last-rays-of-sun-in-the-horizon.png",
         "button_label": "Shop Snowboards",
+        "button_link": "",
+        "collection": "hydrogen-snowboards",
         "products_heading": "Featured Snowboards",
         "products_limit": 4
       }
