@@ -1,3 +1,15 @@
+{% liquid
+  assign snowboard_collection = nil
+  if section.settings.collection != blank
+    assign snowboard_collection = collections[section.settings.collection]
+  endif
+
+  assign cta_url = section.settings.button_link
+  if cta_url == blank and snowboard_collection
+    assign cta_url = snowboard_collection.url
+  endif
+%}
+
 <div class="snowboards full-width">
   <div class="snowboards__hero">
   <div class="snowboards__hero-content">
@@ -13,8 +25,8 @@
       <p class="snowboards__description">{{ section.settings.description }}</p>
     {% endif %}
 
-    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-      <a class="snowboards__button" href="{{ section.settings.button_link }}">
+    {% if section.settings.button_label != blank and cta_url != blank %}
+      <a class="snowboards__button" href="{{ cta_url }}">
         {{ section.settings.button_label }}
       </a>
     {% endif %}
@@ -42,9 +54,7 @@
     </div>
   {% endif %}
 
-  {% if section.settings.collection != blank %}
-    {% assign snowboard_collection = collections[section.settings.collection] %}
-    {% if snowboard_collection.products.size > 0 %}
+  {% if snowboard_collection and snowboard_collection.products.size > 0 %}
       <div class="snowboards__products">
         <h2>{{ section.settings.products_heading }}</h2>
         <div class="snowboards__product-grid">
@@ -67,7 +77,6 @@
           {% endfor %}
         </div>
       </div>
-    {% endif %}
   {% endif %}
 </div>
 
