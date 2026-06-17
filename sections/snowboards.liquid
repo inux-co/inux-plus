@@ -1,0 +1,325 @@
+<div class="snowboards full-width">
+  <div class="snowboards__hero">
+  <div class="snowboards__hero-content">
+    {% if section.settings.heading != blank %}
+      <h1>{{ section.settings.heading }}</h1>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <p class="snowboards__subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <p class="snowboards__description">{{ section.settings.description }}</p>
+    {% endif %}
+
+    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+      <a class="snowboards__button" href="{{ section.settings.button_link }}">
+        {{ section.settings.button_label }}
+      </a>
+    {% endif %}
+  </div>
+
+  {% if section.settings.hero_image %}
+    <div class="snowboards__hero-image">
+      {{ section.settings.hero_image | image_url: width: 800 | image_tag }}
+    </div>
+  {% endif %}
+  </div>
+
+  {% if section.blocks.size > 0 %}
+    <div class="snowboards__features">
+      {% for block in section.blocks %}
+        <div class="snowboards__feature" {{ block.shopify_attributes }}>
+          {% if block.settings.title != blank %}
+            <h3>{{ block.settings.title }}</h3>
+          {% endif %}
+          {% if block.settings.text != blank %}
+            <p>{{ block.settings.text }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.collection != blank %}
+    {% assign snowboard_collection = collections[section.settings.collection] %}
+    {% if snowboard_collection.products.size > 0 %}
+      <div class="snowboards__products">
+        <h2>{{ section.settings.products_heading }}</h2>
+        <div class="snowboards__product-grid">
+          {% for product in snowboard_collection.products limit: section.settings.products_limit %}
+            <a class="snowboards__product-card" href="{{ product.url }}">
+              {% if product.featured_image %}
+                {% render 'image',
+                  class: 'snowboards__product-image',
+                  image: product.featured_image,
+                  width: 600,
+                  height: 600,
+                  crop: 'center'
+                %}
+              {% endif %}
+              <div class="snowboards__product-info">
+                <p class="snowboards__product-title">{{ product.title }}</p>
+                <p class="snowboards__product-price">{{ product.price | money }}</p>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .snowboards {
+    display: grid;
+    grid-template-columns: var(--content-grid);
+    background-color: #f0f4f8;
+    padding: 72px 0;
+  }
+
+  .snowboards__hero {
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    padding: 0 24px;
+  }
+
+  .snowboards__subheading {
+    font-size: 1.125rem;
+    color: #4a6fa5;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  .snowboards__description {
+    max-width: 60ch;
+    line-height: 1.5;
+    margin-top: 1.25rem;
+    color: rgb(92, 95, 98);
+  }
+
+  .snowboards__button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 10px 24px;
+    background-color: #2c5282;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+
+  .snowboards__button:hover {
+    background-color: #1a365d;
+  }
+
+  .snowboards__hero-image {
+    flex-shrink: 0;
+    width: 320px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .snowboards__features {
+    grid-column: 2;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 48px;
+    padding: 0 24px;
+  }
+
+  .snowboards__feature {
+    padding: 24px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: rgb(92, 95, 98);
+    line-height: 1.4;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .snowboards__feature h3 {
+    font-size: 1rem;
+    color: rgb(32, 34, 35);
+    margin-bottom: 0.75rem;
+  }
+
+  .snowboards__products {
+    grid-column: 2;
+    margin-top: 48px;
+    padding: 0 24px;
+  }
+
+  .snowboards__products h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .snowboards__product-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .snowboards__product-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .snowboards__product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  .snowboards__product-info {
+    padding: 12px 16px;
+  }
+
+  .snowboards__product-title {
+    font-weight: 600;
+    color: rgb(32, 34, 35);
+  }
+
+  .snowboards__product-price {
+    margin-top: 0.25rem;
+    color: rgb(92, 95, 98);
+  }
+
+  @media (max-width: 900px) {
+    .snowboards__hero {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .snowboards__hero-image {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .snowboards__features {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.snowboards",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Ride the Mountain"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:labels.subheading",
+      "default": "Premium Snowboards"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "t:labels.text",
+      "default": "Discover our collection of handcrafted snowboards built for performance, style, and the thrill of the slopes. From powder days to park sessions, find the perfect board for your ride."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "t:labels.image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:labels.button_label",
+      "default": "Shop Snowboards"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:labels.button_link"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:labels.collection"
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "t:labels.products_heading",
+      "default": "Featured Snowboards"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "t:labels.products_limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "t:general.feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:labels.heading",
+          "default": "Feature"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "t:labels.text",
+          "default": "Describe a snowboard feature or benefit."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:general.snowboards",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "All-Mountain Performance",
+            "text": "Versatile boards designed to handle groomers, powder, and everything in between."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Premium Materials",
+            "text": "Built with high-grade wood cores and durable edges for seasons of riding."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Expert Craftsmanship",
+            "text": "Each board is shaped and finished with precision for optimal flex and control."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

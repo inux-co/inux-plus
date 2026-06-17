@@ -9,12 +9,50 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "snowboards": {
+      "type": "snowboards",
+      "blocks": {
+        "feature_all_mountain": {
+          "type": "feature",
+          "settings": {
+            "title": "All-Mountain Performance",
+            "text": "Versatile boards designed to handle groomers, powder, and everything in between."
+          }
+        },
+        "feature_materials": {
+          "type": "feature",
+          "settings": {
+            "title": "Premium Materials",
+            "text": "Built with high-grade wood cores and durable edges for seasons of riding."
+          }
+        },
+        "feature_craftsmanship": {
+          "type": "feature",
+          "settings": {
+            "title": "Expert Craftsmanship",
+            "text": "Each board is shaped and finished with precision for optimal flex and control."
+          }
+        }
+      },
+      "block_order": [
+        "feature_all_mountain",
+        "feature_materials",
+        "feature_craftsmanship"
+      ],
+      "settings": {
+        "heading": "Ride the Mountain",
+        "subheading": "Premium Snowboards",
+        "description": "Discover our collection of handcrafted snowboards built for performance, style, and the thrill of the slopes. From powder days to park sessions, find the perfect board for your ride.",
+        "hero_image": "shopify://shop_images/snowboards-with-different-graphics-designs-all-standing-up-in-a-group-on-mountain-top-with-a-night-sky-and-the-last-rays-of-sun-in-the-horizon.png",
+        "button_label": "Shop Snowboards",
+        "button_link": "",
+        "collection": "hydrogen-snowboards",
+        "products_heading": "Featured Snowboards",
+        "products_limit": 4
+      }
     }
   },
   "order": [
-    "main"
+    "snowboards"
   ]
 }
